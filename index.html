@@ -7,309 +7,148 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
+        /* Global Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-color: #667eea;
+            --primary-dark: #5568d3;
+            --secondary-color: #764ba2;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --info-color: #06b6d4;
+            --blue-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --green-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --orange-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --purple-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 2px 8px rgba(102, 126, 234, 0.1);
+            --shadow-md: 0 4px 16px rgba(102, 126, 234, 0.15);
+            --shadow-lg: 0 8px 32px rgba(102, 126, 234, 0.2);
+            --border-radius: 16px;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
             min-height: 100vh;
-            padding: 0;
+            display: flex;
+            flex-direction: column;
         }
 
         .container {
             max-width: 100%;
-            width: 100%;
-            padding: 0 15px;
             margin: 0 auto;
+            padding: 0 32px;
+            width: 100%;
         }
 
         /* Header */
         .header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 20px 0;
+            background: var(--blue-gradient);
+            color: white;
+            padding: 24px 0;
+            box-shadow: 0 4px 24px rgba(102, 126, 234, 0.25);
             position: sticky;
             top: 0;
             z-index: 100;
+            backdrop-filter: blur(10px);
         }
 
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
         }
 
         .header h1 {
-            color: #667eea;
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            letter-spacing: -0.5px;
         }
 
         .header h1 i {
-            margin-right: 10px;
+            font-size: 32px;
+            animation: pulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
 
-        /* Main Content */
-        .main-content {
-            padding: 30px 0;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
-
-        /* Filter Section */
-        .filter-section {
-            margin-bottom: 30px;
-        }
-
-        .filter-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .filter-card h2 {
-            color: #333;
-            font-size: 20px;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .filter-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .filter-group label {
-            color: #555;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
-
-        .input-field {
-            padding: 10px 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        /* Stats Section */
-        .stats-section {
-            margin-bottom: 30px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            transition: transform 0.3s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-        }
-
-        .stat-icon.blue { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .stat-icon.green { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
-        .stat-icon.orange { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .stat-icon.purple { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-
-        .stat-info h3 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .stat-info p {
-            font-size: 14px;
-            color: #777;
-        }
-
-        /* Table Section - FULL WIDTH */
-        .table-section {
-            margin-bottom: 30px;
-        }
-
-        .table-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .table-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .table-header h2 {
-            color: #333;
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .table-actions {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .record-count {
-            color: #777;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        /* Table Container - FULL WIDTH */
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-            border-radius: 8px;
-            border: 1px solid #eee;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 1600px;
-        }
-
-        thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        th {
-            padding: 12px 10px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 11px;
-            white-space: nowrap;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        th.sortable:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
-        th i {
-            margin-left: 5px;
-            font-size: 11px;
-        }
-
-        tbody tr {
-            border-bottom: 1px solid #eee;
-            transition: background 0.2s;
-        }
-
-        tbody tr:hover {
-            background: #f8f9ff;
-        }
-
-        td {
-            padding: 10px 8px;
-            font-size: 11px;
-            color: #333;
-            white-space: nowrap;
-        }
-
-        /* SLA Badge */
-        .sla-badge {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 12px;
-            display: inline-block;
-        }
-
-        .sla-excellent { background: #d4edda; color: #155724; }
-        .sla-good { background: #d1ecf1; color: #0c5460; }
-        .sla-average { background: #fff3cd; color: #856404; }
-        .sla-poor { background: #f8d7da; color: #721c24; }
 
         /* Buttons */
         .btn {
-            padding: 10px 20px;
+            padding: 12px 28px;
             border: none;
-            border-radius: 6px;
+            border-radius: 12px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            background: white;
+            color: var(--primary-color);
         }
 
         .btn-secondary {
-            background: #6c757d;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
         }
 
         .btn-success {
@@ -317,9 +156,376 @@
             color: white;
         }
 
-        .btn-success:hover {
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 36px 0;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            margin-bottom: 32px;
+        }
+
+        .filter-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 32px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .filter-card:hover {
+            box-shadow: var(--shadow-lg);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(17, 153, 142, 0.4);
+        }
+
+        .filter-card h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 28px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .filter-card h2 i {
+            background: var(--blue-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 26px;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .filter-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .filter-group label i {
+            background: var(--blue-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 16px;
+        }
+
+        .input-field {
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+            font-weight: 500;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        .input-field::placeholder {
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        /* Statistics Section */
+        .stats-section {
+            margin-bottom: 32px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 28px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--blue-gradient);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .stat-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-6px);
+        }
+
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .stat-icon.blue {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .stat-icon.green {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .stat-icon.orange {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .stat-icon.purple {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .stat-info h3 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            letter-spacing: -1px;
+        }
+
+        .stat-info p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        /* Table Section */
+        .table-section {
+            margin-bottom: 32px;
+        }
+
+        .table-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 32px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .table-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .table-header h2 i {
+            background: var(--blue-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 26px;
+        }
+
+        .table-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .record-count {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 24px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        /* PERBAIKAN: Full width table tanpa scroll horizontal */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        th {
+            padding: 16px 12px;
+            text-align: left;
+            font-weight: 700;
+            color: white;
+            white-space: nowrap;
+            user-select: none;
+            position: sticky;
+            top: 0;
+            background: inherit;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        th.sortable {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        th.sortable:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        th.sortable i {
+            margin-left: 6px;
+            font-size: 11px;
+            transition: color 0.2s ease;
+            opacity: 0.7;
+        }
+
+        th.sort-asc i,
+        th.sort-desc i {
+            opacity: 1;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+            transform: scale(1.005);
+        }
+
+        td {
+            padding: 14px 12px;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 13px;
+            /* PERBAIKAN: Wrap text untuk mencegah overflow */
+            word-wrap: break-word;
+            max-width: 200px;
+        }
+
+        td.number {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            font-weight: 600;
+        }
+
+        td.currency {
+            text-align: right;
+            font-weight: 600;
+            color: var(--success-color);
+        }
+
+        td.sla {
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .sla-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 24px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .sla-excellent {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #065f46;
+        }
+
+        .sla-good {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            color: #1e40af;
+        }
+
+        .sla-average {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+        }
+
+        .sla-poor {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
         }
 
         /* Pagination */
@@ -327,94 +533,195 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
-            margin-top: 25px;
-            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 2px solid var(--border-color);
         }
 
         .pagination button {
-            padding: 8px 15px;
-            border: 1px solid #ddd;
+            padding: 10px 20px;
+            border: 2px solid var(--border-color);
             background: white;
-            border-radius: 6px;
+            color: var(--text-primary);
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
         }
 
         .pagination button:hover:not(:disabled) {
-            background: #667eea;
+            background: var(--blue-gradient);
             color: white;
-            border-color: #667eea;
-        }
-
-        .pagination button.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
         }
 
         .pagination button:disabled {
-            opacity: 0.5;
+            opacity: 0.4;
             cursor: not-allowed;
         }
 
-        .pagination-info {
-            font-size: 14px;
-            color: #555;
-            font-weight: 500;
-            padding: 0 10px;
+        .pagination .page-info {
+            font-weight: 700;
+            color: var(--text-primary);
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
         }
 
-        /* Loading & Empty States */
-        .loading-spinner, .empty-state {
+        /* Skeleton Loading */
+        .skeleton-loader {
+            padding: 20px 0;
+        }
+
+        .skeleton-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .skeleton-cell {
+            height: 40px;
+            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 12px;
+            flex: 1;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
             text-align: center;
-            padding: 60px 20px;
-            color: #777;
+            padding: 80px 20px;
         }
 
-        .loading-spinner i {
-            font-size: 48px;
-            color: #667eea;
-            margin-bottom: 15px;
+        .spinner-container {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin-bottom: 24px;
+        }
+
+        .spinner-container div {
+            position: absolute;
+            border: 4px solid var(--primary-color);
+            opacity: 1;
+            border-radius: 50%;
+            animation: ripple 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+        }
+
+        .spinner-container div:nth-child(2) {
+            animation-delay: -0.5s;
+        }
+
+        @keyframes ripple {
+            0% {
+                top: 36px;
+                left: 36px;
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                top: 0px;
+                left: 0px;
+                width: 72px;
+                height: 72px;
+                opacity: 0;
+            }
+        }
+
+        .loading-spinner p {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        /* Error Message */
+        .error-message {
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-radius: var(--border-radius);
+            border: 2px solid #fecaca;
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.15);
+        }
+
+        .error-message i {
+            font-size: 64px;
+            color: var(--danger-color);
+            margin-bottom: 20px;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .error-message p {
+            font-size: 18px;
+            color: #991b1b;
+            font-weight: 600;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-secondary);
         }
 
         .empty-state i {
-            font-size: 64px;
-            color: #ddd;
-            margin-bottom: 20px;
+            font-size: 80px;
+            margin-bottom: 24px;
+            opacity: 0.3;
+            background: var(--blue-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .empty-state h3 {
-            color: #555;
-            font-size: 20px;
-            margin-bottom: 10px;
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            font-weight: 700;
         }
 
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .empty-state p {
+            font-size: 16px;
         }
 
         /* Footer */
         .footer {
-            background: white;
-            padding: 20px 0;
-            margin-top: 30px;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            background: var(--card-bg);
+            border-top: 2px solid var(--border-color);
+            padding: 24px 0;
+            margin-top: auto;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
         }
 
         .footer p {
             text-align: center;
-            color: #777;
-            font-size: 14px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
         }
 
         /* Modal */
@@ -426,82 +733,185 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6);
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .modal.show {
-            display: flex;
+        .modal-content {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            max-width: 640px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .modal-content h2 {
-            color: #333;
+            font-size: 24px;
+            font-weight: 700;
             margin-bottom: 20px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-content h2 i {
+            background: var(--blue-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-content p {
+            margin-bottom: 24px;
+            color: var(--text-secondary);
+            font-size: 15px;
         }
 
         .config-input-group {
-            margin: 20px 0;
+            margin-bottom: 28px;
         }
 
         .config-input-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 500;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-primary);
         }
 
         .modal-actions {
-            margin-top: 20px;
             display: flex;
-            gap: 10px;
             justify-content: flex-end;
+            gap: 12px;
         }
 
         .help-text {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 6px;
-            margin-top: 20px;
-            font-size: 13px;
+            margin-top: 28px;
+            padding-top: 28px;
+            border-top: 2px solid var(--border-color);
+        }
+
+        .help-text p {
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-primary);
         }
 
         .help-text ol {
-            margin-left: 20px;
-            margin-top: 10px;
+            padding-left: 24px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.8;
         }
 
         .help-text li {
-            margin: 5px 0;
+            margin-bottom: 10px;
         }
 
-        /* Responsive */
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .filter-grid,
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 18px;
+                font-size: 20px;
             }
-            
-            .filter-grid {
-                grid-template-columns: 1fr;
+
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
             }
-            
+
+            .filter-grid,
             .stats-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .table-header {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+
+            .table-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .stat-card {
+                padding: 20px;
+            }
+
+            .pagination {
+                flex-wrap: wrap;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            td {
+                padding: 10px 8px;
+                max-width: 150px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .header, .footer, .filter-section, .table-actions, .pagination {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            .table-card {
+                box-shadow: none;
+                border: 1px solid #000;
             }
         }
     </style>
@@ -627,7 +1037,7 @@
                             <i class="fas fa-clock"></i>
                         </div>
                         <div class="stat-info">
-                            <h3 id="avgDays">0</h3>
+                            <h3 id="avgDays">0 days</h3>
                             <p>Avg Lead Time (PO to Rcv)</p>
                         </div>
                     </div>
@@ -649,8 +1059,33 @@
 
                     <!-- Loading Spinner -->
                     <div id="loadingSpinner" class="loading-spinner">
-                        <i class="fas fa-spinner fa-spin"></i>
+                        <div class="spinner-container">
+                            <div></div>
+                            <div></div>
+                        </div>
                         <p>Loading data...</p>
+                    </div>
+
+                    <!-- Skeleton Loading -->
+                    <div id="skeletonLoader" class="skeleton-loader" style="display: none;">
+                        <div class="skeleton-row">
+                            <div class="skeleton-cell"></div>
+                            <div class="skeleton-cell"></div>
+                            <div class="skeleton-cell"></div>
+                            <div class="skeleton-cell"></div>
+                        </div>
+                        <div class="skeleton-row">
+                            <div class="skeleton-cell"></div>
+                            <div class="skeleton-cell"></div>
+                            <div class="skeleton-cell"></div>
+                            <div class="skeleton-cell"></div>
+                        </div>
+                        <div class="skeleton-row">
+                            <div class="skeleton-cell"></div>
+                            <div class="skeleton-cell"></div>
+                            <div class="skeleton-cell"></div>
+                            <div class="skeleton-cell"></div>
+                        </div>
                     </div>
 
                     <!-- Error Message -->
@@ -712,18 +1147,20 @@
                     </div>
 
                     <!-- Pagination -->
-                    <div class="pagination" id="pagination" style="display: none;">
-                        <button id="firstPageBtn" class="pagination-btn">
+                    <div id="paginationContainer" class="pagination" style="display: none;">
+                        <button id="firstPageBtn">
                             <i class="fas fa-angle-double-left"></i> First
                         </button>
-                        <button id="prevPageBtn" class="pagination-btn">
+                        <button id="prevPageBtn">
                             <i class="fas fa-angle-left"></i> Previous
                         </button>
-                        <span class="pagination-info" id="paginationInfo">Page 1 of 1</span>
-                        <button id="nextPageBtn" class="pagination-btn">
+                        <div class="page-info">
+                            Page <span id="currentPage">1</span> of <span id="totalPages">1</span>
+                        </div>
+                        <button id="nextPageBtn">
                             Next <i class="fas fa-angle-right"></i>
                         </button>
-                        <button id="lastPageBtn" class="pagination-btn">
+                        <button id="lastPageBtn">
                             Last <i class="fas fa-angle-double-right"></i>
                         </button>
                     </div>
@@ -753,7 +1190,7 @@
             <p>Please configure your Google Apps Script API URL:</p>
             <div class="config-input-group">
                 <label for="apiUrlInput">Google Apps Script Web App URL:</label>
-                <input type="text" id="apiUrlInput" class="input-field" placeholder="https://script.google.com/macros/s/AKfycbyus-VQRwfogwjDS355_WdcSEcElfqIFQfoXfkvVIAlyfpfb2K-U3uiA38A8K4og1Gd/exec">
+                <input type="text" id="apiUrlInput" class="input-field" placeholder="https://script.google.com/macros/s/...">
             </div>
             <div class="modal-actions">
                 <button id="saveConfigBtn" class="btn btn-primary">
@@ -774,253 +1211,531 @@
         </div>
     </div>
 
-    <!-- PAGINATION SCRIPT - LOAD FIRST BEFORE OTHER SCRIPTS -->
+    <!-- JavaScript -->
     <script>
-        // Global helper function to format date - keep DD/MM/YYYY format from database
-        window.formatDateOnly = function(dateString) {
-            if (!dateString || dateString === '-' || dateString === '') return '-';
-            
-            // If it's already in DD/MM/YYYY format (with or without time), handle it
-            if (dateString.includes('/')) {
-                // If it contains space (has time like "02/01/2026 10:30"), take date part only
-                if (dateString.includes(' ')) {
-                    return dateString.split(' ')[0];
-                }
-                // If it's pure DD/MM/YYYY format, return as is
-                if (/^\d{2}\/\d{2}\/\d{4}$/.test(dateString)) {
-                    return dateString;
-                }
-            }
-            
-            // If it's in ISO format (YYYY-MM-DD) or other formats, convert to DD/MM/YYYY
-            try {
-                // Try to parse the date
-                let date;
-                
-                // Check if it's ISO format (YYYY-MM-DD)
-                if (/^\d{4}-\d{2}-\d{2}/.test(dateString)) {
-                    date = new Date(dateString);
-                }
-                // Check if it's DD/MM/YYYY format that needs parsing
-                else if (/^\d{2}\/\d{2}\/\d{4}/.test(dateString)) {
-                    const [day, month, year] = dateString.split(/[\s\/]/).slice(0, 3);
-                    date = new Date(year, month - 1, day);
-                }
-                // Try parsing as general date
-                else {
-                    date = new Date(dateString);
-                }
-                
-                if (!isNaN(date.getTime())) {
-                    const day = String(date.getDate()).padStart(2, '0');
-                    const month = String(date.getMonth() + 1).padStart(2, '0');
-                    const year = date.getFullYear();
-                    return `${day}/${month}/${year}`;
-                }
-            } catch (e) {
-                console.warn('Date parsing failed:', dateString, e);
-            }
-            
-            // If all parsing fails, return original string
-            return dateString;
-        };
+        // Configuration Management
+        const CONFIG_KEY = 'sla_monitoring_api_url';
 
-        // Global Pagination Variables
-        window.ITEMS_PER_PAGE = 20;
-        window.currentPage = 1;
-        window.totalPages = 1;
-        window.allTableData = [];
-        window.originalTableBodyHTML = '';
-
-        // Fungsi untuk render halaman saat ini
-        window.renderCurrentPage = function() {
-            const tableBody = document.getElementById('tableBody');
-            if (!tableBody) return;
-            
-            const startIndex = (window.currentPage - 1) * window.ITEMS_PER_PAGE;
-            const endIndex = startIndex + window.ITEMS_PER_PAGE;
-            const pageData = window.allTableData.slice(startIndex, endIndex);
-            
-            tableBody.innerHTML = '';
-            
-            if (pageData.length === 0) {
-                document.getElementById('emptyState').style.display = 'block';
-                document.getElementById('pagination').style.display = 'none';
-                return;
+        class ConfigManager {
+            constructor() {
+                this.apiUrl = this.getApiUrl();
             }
-            
-            document.getElementById('emptyState').style.display = 'none';
-            document.getElementById('pagination').style.display = 'flex';
-            
-            pageData.forEach(row => {
-                const tr = document.createElement('tr');
-                
-                // SLA Badge
-                let slaBadgeClass = 'sla-poor';
-                const slaValue = parseFloat(row.sla) || 0;
-                if (slaValue >= 90) slaBadgeClass = 'sla-excellent';
-                else if (slaValue >= 75) slaBadgeClass = 'sla-good';
-                else if (slaValue >= 50) slaBadgeClass = 'sla-average';
-                
-                // Format dates - remove time but keep dd/mm/yyyy format
-                const poDateFormatted = window.formatDateOnly(row.poDate);
-                const receivedDateFormatted = window.formatDateOnly(row.receivedDate);
-                
-                tr.innerHTML = `
-                    <td>${row.nomorPO || '-'}</td>
-                    <td>${row.itemCode || '-'}</td>
-                    <td>${row.itemName || '-'}</td>
-                    <td>${row.supplierName || '-'}</td>
-                    <td>${row.contract || '-'}</td>
-                    <td>${poDateFormatted}</td>
-                    <td>${row.qtyPO || 0}</td>
-                    <td>${row.poValue || 0}</td>
-                    <td>${receivedDateFormatted}</td>
-                    <td>${row.qtyReceived || 0}</td>
-                    <td>${row.receivedValue || 0}</td>
-                    <td><span class="sla-badge ${slaBadgeClass}">${slaValue}%</span></td>
-                    <td>${row.avgDays || 0}</td>
-                `;
-                
-                tableBody.appendChild(tr);
-            });
-            
-            // Update record count
-            const recordCount = document.getElementById('recordCount');
-            if (recordCount) {
-                const totalRecords = window.allTableData.length;
-                const showingStart = startIndex + 1;
-                const showingEnd = Math.min(endIndex, totalRecords);
-                recordCount.textContent = `${totalRecords} total records (Showing ${showingStart}-${showingEnd})`;
-            }
-            
-            window.updatePaginationControls();
-        };
-        
-        // Fungsi untuk update kontrol pagination
-        window.updatePaginationControls = function() {
-            const paginationInfo = document.getElementById('paginationInfo');
-            const firstPageBtn = document.getElementById('firstPageBtn');
-            const prevPageBtn = document.getElementById('prevPageBtn');
-            const nextPageBtn = document.getElementById('nextPageBtn');
-            const lastPageBtn = document.getElementById('lastPageBtn');
-            
-            if (paginationInfo) {
-                paginationInfo.textContent = `Page ${window.currentPage} of ${window.totalPages} (20/page)`;
-            }
-            
-            if (firstPageBtn) firstPageBtn.disabled = window.currentPage === 1;
-            if (prevPageBtn) prevPageBtn.disabled = window.currentPage === 1;
-            if (nextPageBtn) nextPageBtn.disabled = window.currentPage === window.totalPages;
-            if (lastPageBtn) lastPageBtn.disabled = window.currentPage === window.totalPages;
-        };
 
-        // Intercept table rendering
-        window.initializePaginationWrapper = function() {
-            const tableBody = document.getElementById('tableBody');
-            if (!tableBody) return;
+            getApiUrl() {
+                return localStorage.getItem(CONFIG_KEY) || '';
+            }
 
-            // Gunakan MutationObserver untuk mendeteksi perubahan pada tbody
-            const observer = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                        // Table body berubah, extract data
-                        const rows = tableBody.querySelectorAll('tr');
-                        if (rows.length > 20) {
-                            // Lebih dari 20 baris, aktifkan pagination
-                            window.extractDataFromTable();
-                        }
-                    }
+            setApiUrl(url) {
+                localStorage.setItem(CONFIG_KEY, url);
+                this.apiUrl = url;
+            }
+
+            hasApiUrl() {
+                return this.apiUrl && this.apiUrl.trim() !== '';
+            }
+
+            clearApiUrl() {
+                localStorage.removeItem(CONFIG_KEY);
+                this.apiUrl = '';
+            }
+        }
+
+        // SLA Monitoring Dashboard Application
+        class SLAMonitoringApp {
+            constructor() {
+                this.configManager = new ConfigManager();
+                this.data = [];
+                this.filteredData = [];
+                this.sortColumn = null;
+                this.sortDirection = 'asc';
+                this.currentPage = 1;
+                this.itemsPerPage = 20;
+                
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                
+                // Check if API URL is configured
+                if (!this.configManager.hasApiUrl()) {
+                    this.showConfigModal();
+                } else {
+                    this.loadData();
+                }
+            }
+
+            setupEventListeners() {
+                // Refresh button
+                document.getElementById('refreshBtn').addEventListener('click', () => {
+                    this.loadData();
                 });
-            });
 
-            observer.observe(tableBody, {
-                childList: true,
-                subtree: false
-            });
-        };
+                // Filter inputs
+                document.getElementById('poDateFrom').addEventListener('change', () => this.applyFilters());
+                document.getElementById('poDateTo').addEventListener('change', () => this.applyFilters());
+                document.getElementById('rcvDateFrom').addEventListener('change', () => this.applyFilters());
+                document.getElementById('rcvDateTo').addEventListener('change', () => this.applyFilters());
+                document.getElementById('supplierSearch').addEventListener('input', () => this.applyFilters());
+                document.getElementById('contractSearch').addEventListener('input', () => this.applyFilters());
+                document.getElementById('itemCodeSearch').addEventListener('input', () => this.applyFilters());
 
-        // Extract data dari tabel yang sudah di-render
-        window.extractDataFromTable = function() {
-            const tableBody = document.getElementById('tableBody');
-            const rows = tableBody.querySelectorAll('tr');
-            
-            if (rows.length <= window.ITEMS_PER_PAGE) return; // Tidak perlu pagination
-            
-            window.allTableData = [];
-            
-            rows.forEach(row => {
-                const cells = row.querySelectorAll('td');
-                if (cells.length >= 13) {
-                    const slaText = cells[11].textContent.trim().replace('%', '');
-                    window.allTableData.push({
-                        nomorPO: cells[0].textContent.trim(),
-                        itemCode: cells[1].textContent.trim(),
-                        itemName: cells[2].textContent.trim(),
-                        supplierName: cells[3].textContent.trim(),
-                        contract: cells[4].textContent.trim(),
-                        poDate: cells[5].textContent.trim(),
-                        qtyPO: cells[6].textContent.trim(),
-                        poValue: cells[7].textContent.trim(),
-                        receivedDate: cells[8].textContent.trim(),
-                        qtyReceived: cells[9].textContent.trim(),
-                        receivedValue: cells[10].textContent.trim(),
-                        sla: slaText,
-                        avgDays: cells[12].textContent.trim()
+                // Clear filters button
+                document.getElementById('clearFiltersBtn').addEventListener('click', () => {
+                    this.clearFilters();
+                });
+
+                // Export button
+                document.getElementById('exportBtn').addEventListener('click', () => {
+                    this.exportToCSV();
+                });
+
+                // Table sorting
+                const sortableHeaders = document.querySelectorAll('th.sortable');
+                sortableHeaders.forEach(header => {
+                    header.addEventListener('click', () => {
+                        const column = header.dataset.column;
+                        this.sortTable(column);
                     });
+                });
+
+                // Config modal
+                document.getElementById('saveConfigBtn').addEventListener('click', () => {
+                    this.saveConfiguration();
+                });
+
+                // Pagination
+                document.getElementById('firstPageBtn').addEventListener('click', () => this.goToPage(1));
+                document.getElementById('prevPageBtn').addEventListener('click', () => this.goToPage(this.currentPage - 1));
+                document.getElementById('nextPageBtn').addEventListener('click', () => this.goToPage(this.currentPage + 1));
+                document.getElementById('lastPageBtn').addEventListener('click', () => {
+                    const totalPages = Math.ceil(this.filteredData.length / this.itemsPerPage);
+                    this.goToPage(totalPages);
+                });
+            }
+
+            showConfigModal() {
+                const modal = document.getElementById('configModal');
+                modal.classList.add('active');
+            }
+
+            hideConfigModal() {
+                const modal = document.getElementById('configModal');
+                modal.classList.remove('active');
+            }
+
+            saveConfiguration() {
+                const apiUrl = document.getElementById('apiUrlInput').value.trim();
+                
+                if (!apiUrl) {
+                    alert('Please enter a valid API URL');
+                    return;
                 }
-            });
-            
-            window.totalPages = Math.ceil(window.allTableData.length / window.ITEMS_PER_PAGE);
-            window.currentPage = 1;
-            window.renderCurrentPage();
-        };
 
-        // Event Listeners untuk pagination buttons
-        document.addEventListener('DOMContentLoaded', function() {
-            window.initializePaginationWrapper();
+                this.configManager.setApiUrl(apiUrl);
+                this.hideConfigModal();
+                this.loadData();
+            }
 
-            const firstPageBtn = document.getElementById('firstPageBtn');
-            const prevPageBtn = document.getElementById('prevPageBtn');
-            const nextPageBtn = document.getElementById('nextPageBtn');
-            const lastPageBtn = document.getElementById('lastPageBtn');
-            
-            if (firstPageBtn) {
-                firstPageBtn.addEventListener('click', function() {
-                    window.currentPage = 1;
-                    window.renderCurrentPage();
-                });
-            }
-            
-            if (prevPageBtn) {
-                prevPageBtn.addEventListener('click', function() {
-                    if (window.currentPage > 1) {
-                        window.currentPage--;
-                        window.renderCurrentPage();
+            async loadData() {
+                const loadingSpinner = document.getElementById('loadingSpinner');
+                const skeletonLoader = document.getElementById('skeletonLoader');
+                const errorMessage = document.getElementById('errorMessage');
+                const tableContainer = document.querySelector('.table-container');
+                const emptyState = document.getElementById('emptyState');
+                const paginationContainer = document.getElementById('paginationContainer');
+
+                // Show loading state with skeleton
+                loadingSpinner.style.display = 'block';
+                skeletonLoader.style.display = 'block';
+                errorMessage.style.display = 'none';
+                tableContainer.style.display = 'none';
+                emptyState.style.display = 'none';
+                paginationContainer.style.display = 'none';
+
+                try {
+                    const response = await fetch(this.configManager.apiUrl);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
                     }
-                });
-            }
-            
-            if (nextPageBtn) {
-                nextPageBtn.addEventListener('click', function() {
-                    if (window.currentPage < window.totalPages) {
-                        window.currentPage++;
-                        window.renderCurrentPage();
+
+                    const result = await response.json();
+                    
+                    // Handle different response formats
+                    this.data = result.data || result || [];
+                    
+                    // Process and calculate SLA and Average Days
+                    this.processData();
+                    
+                    // Apply filters and render
+                    this.applyFilters();
+                    
+                    // Update statistics
+                    this.updateStatistics();
+
+                    // Hide loading, show table
+                    loadingSpinner.style.display = 'none';
+                    skeletonLoader.style.display = 'none';
+                    
+                    if (this.filteredData.length > 0) {
+                        tableContainer.style.display = 'block';
+                        paginationContainer.style.display = 'flex';
+                    } else {
+                        emptyState.style.display = 'block';
                     }
+
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                    loadingSpinner.style.display = 'none';
+                    skeletonLoader.style.display = 'none';
+                    errorMessage.style.display = 'block';
+                    document.getElementById('errorText').textContent = 
+                        `Failed to load data: ${error.message}. Please check your API URL configuration.`;
+                }
+            }
+
+            processData() {
+                this.data = this.data.map(item => {
+                    // Calculate SLA (Received Value / PO Value * 100)
+                    const poValue = parseFloat(item.poValue) || 0;
+                    const receivedValue = parseFloat(item.receivedValue) || 0;
+                    const sla = poValue > 0 ? (receivedValue / poValue * 100) : 0;
+
+                    // Calculate Average Days (Received Date - PO Date)
+                    const poDate = this.parseDate(item.poDate);
+                    const receivedDate = this.parseDate(item.receivedDate);
+                    const avgDays = poDate && receivedDate ? 
+                        Math.ceil((receivedDate - poDate) / (1000 * 60 * 60 * 24)) : 0;
+
+                    return {
+                        ...item,
+                        sla: parseFloat(sla.toFixed(2)),
+                        avgDays: avgDays,
+                        poDateObj: poDate,
+                        receivedDateObj: receivedDate
+                    };
                 });
             }
-            
-            if (lastPageBtn) {
-                lastPageBtn.addEventListener('click', function() {
-                    window.currentPage = window.totalPages;
-                    window.renderCurrentPage();
-                });
+
+            // PERBAIKAN: Parse date with DD/MM/YYYY format
+            parseDate(dateString) {
+                if (!dateString) return null;
+                
+                // Format: DD/MM/YYYY (dari database)
+                const parts = dateString.split('/');
+                if (parts.length === 3) {
+                    const day = parseInt(parts[0]);
+                    const month = parseInt(parts[1]) - 1; // Month is 0-indexed
+                    const year = parseInt(parts[2]);
+                    return new Date(year, month, day);
+                }
+                
+                // Fallback to standard date parsing
+                const date = new Date(dateString);
+                return isNaN(date.getTime()) ? null : date;
             }
-        });
+
+            // PERBAIKAN: Format date to DD/MM/YYYY
+            formatDate(dateObj) {
+                if (!dateObj || !(dateObj instanceof Date)) return '-';
+                
+                const day = String(dateObj.getDate()).padStart(2, '0');
+                const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+                const year = dateObj.getFullYear();
+                
+                return `${day}/${month}/${year}`;
+            }
+
+            applyFilters() {
+                const poDateFrom = document.getElementById('poDateFrom').value;
+                const poDateTo = document.getElementById('poDateTo').value;
+                const rcvDateFrom = document.getElementById('rcvDateFrom').value;
+                const rcvDateTo = document.getElementById('rcvDateTo').value;
+                const supplierSearch = document.getElementById('supplierSearch').value.toLowerCase();
+                const contractSearch = document.getElementById('contractSearch').value.toLowerCase();
+                const itemCodeSearch = document.getElementById('itemCodeSearch').value.toLowerCase();
+
+                this.filteredData = this.data.filter(item => {
+                    // Filter by PO Date
+                    if (poDateFrom && item.poDateObj && item.poDateObj < new Date(poDateFrom)) {
+                        return false;
+                    }
+                    if (poDateTo && item.poDateObj && item.poDateObj > new Date(poDateTo)) {
+                        return false;
+                    }
+
+                    // Filter by Received Date
+                    if (rcvDateFrom && item.receivedDateObj && item.receivedDateObj < new Date(rcvDateFrom)) {
+                        return false;
+                    }
+                    if (rcvDateTo && item.receivedDateObj && item.receivedDateObj > new Date(rcvDateTo)) {
+                        return false;
+                    }
+
+                    // Filter by Supplier Name
+                    if (supplierSearch && !item.supplierName.toLowerCase().includes(supplierSearch)) {
+                        return false;
+                    }
+
+                    // Filter by Contract
+                    if (contractSearch && !item.contract.toLowerCase().includes(contractSearch)) {
+                        return false;
+                    }
+
+                    // Filter by Item Code
+                    if (itemCodeSearch && !item.itemCode.toLowerCase().includes(itemCodeSearch)) {
+                        return false;
+                    }
+
+                    return true;
+                });
+
+                // Reset to first page and render
+                this.currentPage = 1;
+                this.renderTable();
+                this.updatePagination();
+                this.updateStatistics();
+            }
+
+            clearFilters() {
+                document.getElementById('poDateFrom').value = '';
+                document.getElementById('poDateTo').value = '';
+                document.getElementById('rcvDateFrom').value = '';
+                document.getElementById('rcvDateTo').value = '';
+                document.getElementById('supplierSearch').value = '';
+                document.getElementById('contractSearch').value = '';
+                document.getElementById('itemCodeSearch').value = '';
+                
+                this.applyFilters();
+            }
+
+            sortTable(column) {
+                // Toggle sort direction
+                if (this.sortColumn === column) {
+                    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+                } else {
+                    this.sortColumn = column;
+                    this.sortDirection = 'asc';
+                }
+
+                // Sort the filtered data
+                this.filteredData.sort((a, b) => {
+                    let aVal = a[column];
+                    let bVal = b[column];
+
+                    // Handle date objects
+                    if (column === 'poDate' || column === 'receivedDate') {
+                        aVal = a[column + 'Obj'];
+                        bVal = b[column + 'Obj'];
+                        
+                        if (!aVal) return 1;
+                        if (!bVal) return -1;
+                        
+                        return this.sortDirection === 'asc' ? 
+                            aVal - bVal : bVal - aVal;
+                    }
+
+                    // Handle numeric values
+                    if (typeof aVal === 'number' && typeof bVal === 'number') {
+                        return this.sortDirection === 'asc' ? 
+                            aVal - bVal : bVal - aVal;
+                    }
+
+                    // Handle string values
+                    aVal = String(aVal || '');
+                    bVal = String(bVal || '');
+                    
+                    return this.sortDirection === 'asc' ? 
+                        aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                });
+
+                // Update UI
+                this.updateSortIcons();
+                this.renderTable();
+            }
+
+            updateSortIcons() {
+                // Reset all sort icons
+                document.querySelectorAll('th.sortable').forEach(th => {
+                    th.classList.remove('sort-asc', 'sort-desc');
+                    const icon = th.querySelector('i');
+                    icon.className = 'fas fa-sort';
+                });
+
+                // Update active sort icon
+                const activeHeader = document.querySelector(`th[data-column="${this.sortColumn}"]`);
+                if (activeHeader) {
+                    activeHeader.classList.add(`sort-${this.sortDirection}`);
+                    const icon = activeHeader.querySelector('i');
+                    icon.className = this.sortDirection === 'asc' ? 
+                        'fas fa-sort-up' : 'fas fa-sort-down';
+                }
+            }
+
+            goToPage(page) {
+                const totalPages = Math.ceil(this.filteredData.length / this.itemsPerPage);
+                
+                if (page < 1 || page > totalPages) return;
+                
+                this.currentPage = page;
+                this.renderTable();
+                this.updatePagination();
+            }
+
+            updatePagination() {
+                const totalPages = Math.ceil(this.filteredData.length / this.itemsPerPage);
+                
+                document.getElementById('currentPage').textContent = this.currentPage;
+                document.getElementById('totalPages').textContent = totalPages || 1;
+
+                document.getElementById('firstPageBtn').disabled = this.currentPage === 1;
+                document.getElementById('prevPageBtn').disabled = this.currentPage === 1;
+                document.getElementById('nextPageBtn').disabled = this.currentPage === totalPages || totalPages === 0;
+                document.getElementById('lastPageBtn').disabled = this.currentPage === totalPages || totalPages === 0;
+            }
+
+            renderTable() {
+                const tbody = document.getElementById('tableBody');
+                tbody.innerHTML = '';
+
+                const start = (this.currentPage - 1) * this.itemsPerPage;
+                const end = start + this.itemsPerPage;
+                const pageData = this.filteredData.slice(start, end);
+
+                if (pageData.length === 0) {
+                    document.querySelector('.table-container').style.display = 'none';
+                    document.getElementById('emptyState').style.display = 'block';
+                    document.getElementById('paginationContainer').style.display = 'none';
+                    return;
+                }
+
+                document.querySelector('.table-container').style.display = 'block';
+                document.getElementById('emptyState').style.display = 'none';
+                document.getElementById('paginationContainer').style.display = 'flex';
+
+                pageData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.classList.add('fade-in');
+                    
+                    // PERBAIKAN: Gunakan formatDate untuk menampilkan tanggal dalam format DD/MM/YYYY
+                    row.innerHTML = `
+                        <td>${this.escapeHtml(item.nomorPO || '-')}</td>
+                        <td>${this.escapeHtml(item.itemCode || '-')}</td>
+                        <td>${this.escapeHtml(item.itemName || '-')}</td>
+                        <td>${this.escapeHtml(item.supplierName || '-')}</td>
+                        <td>${this.escapeHtml(item.contract || '-')}</td>
+                        <td>${this.formatDate(item.poDateObj)}</td>
+                        <td class="number">${this.formatNumber(item.qtyPO || 0)}</td>
+                        <td class="currency">${this.formatCurrency(item.poValue || 0)}</td>
+                        <td>${this.formatDate(item.receivedDateObj)}</td>
+                        <td class="number">${this.formatNumber(item.qtyReceived || 0)}</td>
+                        <td class="currency">${this.formatCurrency(item.receivedValue || 0)}</td>
+                        <td class="sla">
+                            <span class="sla-badge ${this.getSLAClass(item.sla)}">
+                                ${item.sla.toFixed(2)}%
+                            </span>
+                        </td>
+                        <td class="number">${item.avgDays} days</td>
+                    `;
+                    
+                    tbody.appendChild(row);
+                });
+
+                // Update record count
+                document.getElementById('recordCount').textContent = 
+                    `${this.filteredData.length} records`;
+            }
+
+            getSLAClass(sla) {
+                if (sla >= 90) return 'sla-excellent';
+                if (sla >= 75) return 'sla-good';
+                if (sla >= 50) return 'sla-average';
+                return 'sla-poor';
+            }
+
+            updateStatistics() {
+                const totalPO = new Set(this.filteredData.map(item => item.nomorPO)).size;
+                const totalItems = new Set(this.filteredData.map(item => item.itemCode)).size;
+                
+                const avgSLA = this.filteredData.length > 0 ?
+                    this.filteredData.reduce((sum, item) => sum + item.sla, 0) / this.filteredData.length : 0;
+                
+                const avgDays = this.filteredData.length > 0 ?
+                    this.filteredData.reduce((sum, item) => sum + item.avgDays, 0) / this.filteredData.length : 0;
+
+                document.getElementById('totalPO').textContent = this.formatNumber(totalPO);
+                document.getElementById('totalItems').textContent = this.formatNumber(totalItems);
+                document.getElementById('avgSLA').textContent = avgSLA.toFixed(2) + '%';
+                document.getElementById('avgDays').textContent = Math.round(avgDays) + ' days';
+            }
+
+            formatNumber(value) {
+                return new Intl.NumberFormat('id-ID').format(value);
+            }
+
+            formatCurrency(value) {
+                return 'Rp ' + new Intl.NumberFormat('id-ID').format(value);
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            exportToCSV() {
+                if (this.filteredData.length === 0) {
+                    alert('No data to export');
+                    return;
+                }
+
+                // PERBAIKAN: Format tanggal dalam CSV menggunakan DD/MM/YYYY
+                const headers = [
+                    'Nomor PO', 'Item Code', 'Item Name', 'Supplier Name', 
+                    'Contract/Principal', 'PO Date', 'Qty PO', 'PO Value',
+                    'Received Date', 'Qty Received', 'Received Value', 'SLA (%)', 'Avg Days'
+                ];
+
+                const csvRows = [headers.join(',')];
+
+                this.filteredData.forEach(item => {
+                    const row = [
+                        `"${item.nomorPO || ''}"`,
+                        `"${item.itemCode || ''}"`,
+                        `"${item.itemName || ''}"`,
+                        `"${item.supplierName || ''}"`,
+                        `"${item.contract || ''}"`,
+                        `"${this.formatDate(item.poDateObj)}"`,
+                        item.qtyPO || 0,
+                        item.poValue || 0,
+                        `"${this.formatDate(item.receivedDateObj)}"`,
+                        item.qtyReceived || 0,
+                        item.receivedValue || 0,
+                        item.sla.toFixed(2),
+                        item.avgDays
+                    ];
+                    csvRows.push(row.join(','));
+                });
+
+                const csvContent = csvRows.join('\n');
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                
+                const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+                link.setAttribute('href', url);
+                link.setAttribute('download', `SLA_Report_${timestamp}.csv`);
+                link.style.visibility = 'hidden';
+                
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+
+        // Initialize the application
+        const app = new SLAMonitoringApp();
     </script>
-
-    <!-- Load original scripts -->
-    <script src="config.js"></script>
-    <script src="app.js"></script>
 </body>
 </html>
