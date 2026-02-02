@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLA Supplier Monitoring Dashboard</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 100%;
+            width: 100%;
+            padding: 0 15px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .header h1 i {
+            margin-right: 10px;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 30px 0;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            margin-bottom: 30px;
+        }
+
+        .filter-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .filter-card h2 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .input-field {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            margin-bottom: 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .stat-icon.blue { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .stat-icon.green { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .stat-icon.orange { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .stat-icon.purple { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+
+        .stat-info h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .stat-info p {
+            font-size: 14px;
+            color: #777;
+        }
+
+        /* Table Section - FULL WIDTH */
+        .table-section {
+            margin-bottom: 30px;
+        }
+
+        .table-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .table-header h2 {
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .record-count {
+            color: #777;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Table Container - FULL WIDTH */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1600px;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 11px;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th.sortable:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        th i {
+            margin-left: 5px;
+            font-size: 11px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover {
+            background: #f8f9ff;
+        }
+
+        td {
+            padding: 10px 8px;
+            font-size: 11px;
+            color: #333;
+            white-space: nowrap;
+        }
+
+        /* SLA Badge */
+        .sla-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+            display: inline-block;
+        }
+
+        .sla-excellent { background: #d4edda; color: #155724; }
+        .sla-good { background: #d1ecf1; color: #0c5460; }
+        .sla-average { background: #fff3cd; color: #856404; }
+        .sla-poor { background: #f8d7da; color: #721c24; }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(17, 153, 142, 0.4);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .pagination button {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .pagination button.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination-info {
+            font-size: 14px;
+            color: #555;
+            font-weight: 500;
+            padding: 0 10px;
+        }
+
+        /* Loading & Empty States */
+        .loading-spinner, .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #777;
+        }
+
+        .loading-spinner i {
+            font-size: 48px;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            color: #555;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background: white;
+            padding: 20px 0;
+            margin-top: 30px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
+        .footer p {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .config-input-group {
+            margin: 20px 0;
+        }
+
+        .config-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .modal-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .help-text {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+        .help-text ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .help-text li {
+            margin: 5px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 18px;
+            }
+            
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .table-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1><i class="fas fa-chart-line"></i> SLA Supplier Monitoring</h1>
+                <button id="refreshBtn" class="btn btn-primary">
+                    <i class="fas fa-sync-alt"></i> Refresh Data
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Filter Section -->
+            <section class="filter-section">
+                <div class="filter-card">
+                    <h2><i class="fas fa-filter"></i> Filter & Search</h2>
+                    
+                    <div class="filter-grid">
+                        <!-- Date Filters -->
+                        <div class="filter-group">
+                            <label for="poDateFrom">
+                                <i class="fas fa-calendar"></i> PO Date From
+                            </label>
+                            <input type="date" id="poDateFrom" class="input-field">
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="poDateTo">
+                                <i class="fas fa-calendar"></i> PO Date To
+                            </label>
+                            <input type="date" id="poDateTo" class="input-field">
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="rcvDateFrom">
+                                <i class="fas fa-calendar-check"></i> Received Date From
+                            </label>
+                            <input type="date" id="rcvDateFrom" class="input-field">
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="rcvDateTo">
+                                <i class="fas fa-calendar-check"></i> Received Date To
+                            </label>
+                            <input type="date" id="rcvDateTo" class="input-field">
+                        </div>
+
+                        <!-- Search Filters -->
+                        <div class="filter-group">
+                            <label for="supplierSearch">
+                                <i class="fas fa-truck"></i> Supplier Name
+                            </label>
+                            <input type="text" id="supplierSearch" class="input-field" placeholder="Search supplier...">
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="contractSearch">
+                                <i class="fas fa-file-contract"></i> Contract/Principal
+                            </label>
+                            <input type="text" id="contractSearch" class="input-field" placeholder="Search contract...">
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="itemCodeSearch">
+                                <i class="fas fa-barcode"></i> Item Code
+                            </label>
+                            <input type="text" id="itemCodeSearch" class="input-field" placeholder="Search item code...">
+                        </div>
+
+                        <div class="filter-group">
+                            <label>&nbsp;</label>
+                            <button id="clearFiltersBtn" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Clear Filters
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Statistics Section -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fas fa-file-invoice"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalPO">0</h3>
+                            <p>Total PO</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalItems">0</h3>
+                            <p>Total SKU</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="avgSLA">0%</h3>
+                            <p>Average SLA</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="avgDays">0</h3>
+                            <p>Avg Lead Time (PO to Rcv)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Table Section -->
+            <section class="table-section">
+                <div class="table-card">
+                    <div class="table-header">
+                        <h2><i class="fas fa-table"></i> SLA Data</h2>
+                        <div class="table-actions">
+                            <span id="recordCount" class="record-count">0 records</span>
+                            <button id="exportBtn" class="btn btn-success">
+                                <i class="fas fa-file-export"></i> Export CSV
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Loading Spinner -->
+                    <div id="loadingSpinner" class="loading-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading data...</p>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div id="errorMessage" class="error-message" style="display: none;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p id="errorText"></p>
+                    </div>
+
+                    <!-- Table Container -->
+                    <div class="table-container">
+                        <table id="slaTable">
+                            <thead>
+                                <tr>
+                                    <th data-column="nomorPO" class="sortable">
+                                        Nomor PO <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th data-column="itemCode" class="sortable">
+                                        Item Code <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th data-column="itemName" class="sortable">
+                                        Item Name <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th data-column="supplierName" class="sortable">
+                                        Supplier Name <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th data-column="contract" class="sortable">
+                                        Contract/Principal <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th data-column="poDate" class="sortable">
+                                        PO Date <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th data-column="qtyPO" class="sortable">
+                                        Qty PO <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th data-column="poValue" class="sortable">
+                                        PO Value <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th data-column="receivedDate" class="sortable">
+                                        Received Date <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th data-column="qtyReceived" class="sortable">
+                                        Qty Received <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th data-column="receivedValue" class="sortable">
+                                        Received Value <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th data-column="sla" class="sortable">
+                                        SLA (%) <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th data-column="avgDays" class="sortable">
+                                        Avg Days <i class="fas fa-sort"></i>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Data will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" id="pagination" style="display: none;">
+                        <button id="firstPageBtn" class="pagination-btn">
+                            <i class="fas fa-angle-double-left"></i> First
+                        </button>
+                        <button id="prevPageBtn" class="pagination-btn">
+                            <i class="fas fa-angle-left"></i> Previous
+                        </button>
+                        <span class="pagination-info" id="paginationInfo">Page 1 of 1</span>
+                        <button id="nextPageBtn" class="pagination-btn">
+                            Next <i class="fas fa-angle-right"></i>
+                        </button>
+                        <button id="lastPageBtn" class="pagination-btn">
+                            Last <i class="fas fa-angle-double-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="emptyState" class="empty-state" style="display: none;">
+                        <i class="fas fa-inbox"></i>
+                        <h3>No Data Found</h3>
+                        <p>Try adjusting your filters or refresh the data</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 SLA Supplier Monitoring Dashboard. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Configuration Modal -->
+    <div id="configModal" class="modal">
+        <div class="modal-content">
+            <h2><i class="fas fa-cog"></i> Configuration Required</h2>
+            <p>Please configure your Google Apps Script API URL:</p>
+            <div class="config-input-group">
+                <label for="apiUrlInput">Google Apps Script Web App URL:</label>
+                <input type="text" id="apiUrlInput" class="input-field" placeholder="https://script.google.com/macros/s/AKfycbyoFoqVOS1SCIXeg2Mn2nD7N0j5noGu9aBUqAoo51kV0tFwHDQK56DuQuXpyASFe64r/exec">
+            </div>
+            <div class="modal-actions">
+                <button id="saveConfigBtn" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Configuration
+                </button>
+            </div>
+            <div class="help-text">
+                <p><strong>How to get the API URL:</strong></p>
+                <ol>
+                    <li>Open your Google Apps Script project</li>
+                    <li>Click "Deploy" > "New deployment"</li>
+                    <li>Select type "Web app"</li>
+                    <li>Set "Execute as" to your account</li>
+                    <li>Set "Who has access" to "Anyone"</li>
+                    <li>Click "Deploy" and copy the Web App URL</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGINATION SCRIPT - LOAD FIRST BEFORE OTHER SCRIPTS -->
+    <script>
+        // Global helper function to format date - keep DD/MM/YYYY format from database
+        window.formatDateOnly = function(dateString) {
+            if (!dateString || dateString === '-' || dateString === '') return '-';
+            
+            // If it's already in DD/MM/YYYY format (with or without time), handle it
+            if (dateString.includes('/')) {
+                // If it contains space (has time like "02/01/2026 10:30"), take date part only
+                if (dateString.includes(' ')) {
+                    return dateString.split(' ')[0];
+                }
+                // If it's pure DD/MM/YYYY format, return as is
+                if (/^\d{2}\/\d{2}\/\d{4}$/.test(dateString)) {
+                    return dateString;
+                }
+            }
+            
+            // If it's in ISO format (YYYY-MM-DD) or other formats, convert to DD/MM/YYYY
+            try {
+                // Try to parse the date
+                let date;
+                
+                // Check if it's ISO format (YYYY-MM-DD)
+                if (/^\d{4}-\d{2}-\d{2}/.test(dateString)) {
+                    date = new Date(dateString);
+                }
+                // Check if it's DD/MM/YYYY format that needs parsing
+                else if (/^\d{2}\/\d{2}\/\d{4}/.test(dateString)) {
+                    const [day, month, year] = dateString.split(/[\s\/]/).slice(0, 3);
+                    date = new Date(year, month - 1, day);
+                }
+                // Try parsing as general date
+                else {
+                    date = new Date(dateString);
+                }
+                
+                if (!isNaN(date.getTime())) {
+                    const day = String(date.getDate()).padStart(2, '0');
+                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                    const year = date.getFullYear();
+                    return `${day}/${month}/${year}`;
+                }
+            } catch (e) {
+                console.warn('Date parsing failed:', dateString, e);
+            }
+            
+            // If all parsing fails, return original string
+            return dateString;
+        };
+
+        // Global Pagination Variables
+        window.ITEMS_PER_PAGE = 20;
+        window.currentPage = 1;
+        window.totalPages = 1;
+        window.allTableData = [];
+        window.originalTableBodyHTML = '';
+
+        // Fungsi untuk render halaman saat ini
+        window.renderCurrentPage = function() {
+            const tableBody = document.getElementById('tableBody');
+            if (!tableBody) return;
+            
+            const startIndex = (window.currentPage - 1) * window.ITEMS_PER_PAGE;
+            const endIndex = startIndex + window.ITEMS_PER_PAGE;
+            const pageData = window.allTableData.slice(startIndex, endIndex);
+            
+            tableBody.innerHTML = '';
+            
+            if (pageData.length === 0) {
+                document.getElementById('emptyState').style.display = 'block';
+                document.getElementById('pagination').style.display = 'none';
+                return;
+            }
+            
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('pagination').style.display = 'flex';
+            
+            pageData.forEach(row => {
+                const tr = document.createElement('tr');
+                
+                // SLA Badge
+                let slaBadgeClass = 'sla-poor';
+                const slaValue = parseFloat(row.sla) || 0;
+                if (slaValue >= 90) slaBadgeClass = 'sla-excellent';
+                else if (slaValue >= 75) slaBadgeClass = 'sla-good';
+                else if (slaValue >= 50) slaBadgeClass = 'sla-average';
+                
+                // Format dates - remove time but keep dd/mm/yyyy format
+                const poDateFormatted = window.formatDateOnly(row.poDate);
+                const receivedDateFormatted = window.formatDateOnly(row.receivedDate);
+                
+                tr.innerHTML = `
+                    <td>${row.nomorPO || '-'}</td>
+                    <td>${row.itemCode || '-'}</td>
+                    <td>${row.itemName || '-'}</td>
+                    <td>${row.supplierName || '-'}</td>
+                    <td>${row.contract || '-'}</td>
+                    <td>${poDateFormatted}</td>
+                    <td>${row.qtyPO || 0}</td>
+                    <td>${row.poValue || 0}</td>
+                    <td>${receivedDateFormatted}</td>
+                    <td>${row.qtyReceived || 0}</td>
+                    <td>${row.receivedValue || 0}</td>
+                    <td><span class="sla-badge ${slaBadgeClass}">${slaValue}%</span></td>
+                    <td>${row.avgDays || 0}</td>
+                `;
+                
+                tableBody.appendChild(tr);
+            });
+            
+            // Update record count
+            const recordCount = document.getElementById('recordCount');
+            if (recordCount) {
+                const totalRecords = window.allTableData.length;
+                const showingStart = startIndex + 1;
+                const showingEnd = Math.min(endIndex, totalRecords);
+                recordCount.textContent = `${totalRecords} total records (Showing ${showingStart}-${showingEnd})`;
+            }
+            
+            window.updatePaginationControls();
+        };
+        
+        // Fungsi untuk update kontrol pagination
+        window.updatePaginationControls = function() {
+            const paginationInfo = document.getElementById('paginationInfo');
+            const firstPageBtn = document.getElementById('firstPageBtn');
+            const prevPageBtn = document.getElementById('prevPageBtn');
+            const nextPageBtn = document.getElementById('nextPageBtn');
+            const lastPageBtn = document.getElementById('lastPageBtn');
+            
+            if (paginationInfo) {
+                paginationInfo.textContent = `Page ${window.currentPage} of ${window.totalPages} (20/page)`;
+            }
+            
+            if (firstPageBtn) firstPageBtn.disabled = window.currentPage === 1;
+            if (prevPageBtn) prevPageBtn.disabled = window.currentPage === 1;
+            if (nextPageBtn) nextPageBtn.disabled = window.currentPage === window.totalPages;
+            if (lastPageBtn) lastPageBtn.disabled = window.currentPage === window.totalPages;
+        };
+
+        // Intercept table rendering
+        window.initializePaginationWrapper = function() {
+            const tableBody = document.getElementById('tableBody');
+            if (!tableBody) return;
+
+            // Gunakan MutationObserver untuk mendeteksi perubahan pada tbody
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                        // Table body berubah, extract data
+                        const rows = tableBody.querySelectorAll('tr');
+                        if (rows.length > 20) {
+                            // Lebih dari 20 baris, aktifkan pagination
+                            window.extractDataFromTable();
+                        }
+                    }
+                });
+            });
+
+            observer.observe(tableBody, {
+                childList: true,
+                subtree: false
+            });
+        };
+
+        // Extract data dari tabel yang sudah di-render
+        window.extractDataFromTable = function() {
+            const tableBody = document.getElementById('tableBody');
+            const rows = tableBody.querySelectorAll('tr');
+            
+            if (rows.length <= window.ITEMS_PER_PAGE) return; // Tidak perlu pagination
+            
+            window.allTableData = [];
+            
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 13) {
+                    const slaText = cells[11].textContent.trim().replace('%', '');
+                    window.allTableData.push({
+                        nomorPO: cells[0].textContent.trim(),
+                        itemCode: cells[1].textContent.trim(),
+                        itemName: cells[2].textContent.trim(),
+                        supplierName: cells[3].textContent.trim(),
+                        contract: cells[4].textContent.trim(),
+                        poDate: cells[5].textContent.trim(),
+                        qtyPO: cells[6].textContent.trim(),
+                        poValue: cells[7].textContent.trim(),
+                        receivedDate: cells[8].textContent.trim(),
+                        qtyReceived: cells[9].textContent.trim(),
+                        receivedValue: cells[10].textContent.trim(),
+                        sla: slaText,
+                        avgDays: cells[12].textContent.trim()
+                    });
+                }
+            });
+            
+            window.totalPages = Math.ceil(window.allTableData.length / window.ITEMS_PER_PAGE);
+            window.currentPage = 1;
+            window.renderCurrentPage();
+        };
+
+        // Event Listeners untuk pagination buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            window.initializePaginationWrapper();
+
+            const firstPageBtn = document.getElementById('firstPageBtn');
+            const prevPageBtn = document.getElementById('prevPageBtn');
+            const nextPageBtn = document.getElementById('nextPageBtn');
+            const lastPageBtn = document.getElementById('lastPageBtn');
+            
+            if (firstPageBtn) {
+                firstPageBtn.addEventListener('click', function() {
+                    window.currentPage = 1;
+                    window.renderCurrentPage();
+                });
+            }
+            
+            if (prevPageBtn) {
+                prevPageBtn.addEventListener('click', function() {
+                    if (window.currentPage > 1) {
+                        window.currentPage--;
+                        window.renderCurrentPage();
+                    }
+                });
+            }
+            
+            if (nextPageBtn) {
+                nextPageBtn.addEventListener('click', function() {
+                    if (window.currentPage < window.totalPages) {
+                        window.currentPage++;
+                        window.renderCurrentPage();
+                    }
+                });
+            }
+            
+            if (lastPageBtn) {
+                lastPageBtn.addEventListener('click', function() {
+                    window.currentPage = window.totalPages;
+                    window.renderCurrentPage();
+                });
+            }
+        });
+    </script>
+
+    <!-- Load original scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
